@@ -50,6 +50,22 @@ public static ArrayList<User> loadSystemUsers() {
 			rec = arr.get(i);
 
 	builder.setReciever(rec);
+	
+	
 }*/
 
+	
+	/*public static void autoDeleteTrash() {
+	// called at the beginning of the program
+	try {
+		Path file = Paths.get("");
+		FileTime creationTime = (FileTime) Files.getAttribute((Path)(.getPath()), "creationTime");
+	}
+	catch() {
+		
+	}
+	
+	
+}*/
+		
 }

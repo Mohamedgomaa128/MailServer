@@ -13,6 +13,7 @@ import java.util.ArrayList;
 
 
 
+
 public class WithFiles {
 
 	public static void createFolder(String toCreate, User u) {
@@ -149,25 +150,192 @@ public class WithFiles {
 	
 	
 	
-	public static void keepMeLogIn() {
-		//when you start program you just need to check for this file
+	public static void keepMeLogOut() {
+		//if user log out clear the user data in the file
+		File keepMe = new File("users\\" + "keepMeLogIn.txt");
+		keepMe.delete();
+		try {
+			keepMe.createNewFile();
+		}
+		catch(Exception e) {
+			System.out.println("error at keep me");
+		}
 	}
 	
-	
-	/*public static void autoDeleteTrash() {
-	// called at the beginning of the program
-	try {
-		Path file = Paths.get("");
-		FileTime creationTime = (FileTime) Files.getAttribute((Path)(.getPath()), "creationTime");
+	public static User getKeepMe() {
+		// returns null if file is empty and there is no user to read
+		// else if user is found returns him
+		File keepMe = new File("users\\" + "keepMeLogIn.txt");
+		if (keepMe.length() == 0)
+			return null;
+		else {
+			try {
+				FileInputStream fis = new FileInputStream(keepMe);
+				ObjectInputStream ois = new ObjectInputStream(fis);
+				
+				User u = (User) ois.readObject();
+				
+				return u;
+			}
+			catch(Exception e) {
+				System.out.println("error in reading user's file in keepMe");
+				return null;
+			}		
+		
+		}
 	}
-	catch() {
+	
+	public static void keepMeLogIn(User u) {
+		//if user checked for keep Me logged in
+		File keepMe = new File("users\\" + "keepMeLogIn.txt");
+		try {
+			FileOutputStream fos = new FileOutputStream(keepMe);
+			ObjectOutputStream oos = new ObjectOutputStream(fos);
+			
+			oos.writeObject(u);
+			
+			oos.flush();
+			oos.close();
+			fos.close();
+			//return true;
+		}
+		catch(Exception e) {
+			System.out.println(e.getLocalizedMessage());
+			//return false;
+		}
 		
 	}
 	
 	
-}*/
-		
+	
 
+	public static void addIdToEmail(Email e) {
+		ArrayList<Integer> list = readEmailsIds();
+		int id = validId(list);
+		e.setId(id);
+		addEmailId(id);
+	}
+	
+	public static ArrayList<Integer> readEmailsIds() {
+		File f = new File("users\\ids.txt");
+		
+		try {
+			FileInputStream fis = new FileInputStream(f);
+			ObjectInputStream ois = new ObjectInputStream(fis);
+			
+			ArrayList<Integer> list = (ArrayList<Integer>) ois.readObject();
+			return list;
+		}
+		catch(Exception e) {
+			return null;
+		}		
+	}
+	
+	public static void addEmailId(int id) {
+		
+		try {
+			ArrayList<Integer> list = readEmailsIds();
+			File fId = new File("users\\ids.txt");
+
+			//first id
+			if (list == null) {
+				list = new ArrayList<Integer>();
+				
+				try {
+					fId.createNewFile();
+				}
+				catch(Exception e) {
+					e.printStackTrace();
+				}
+			}
+			
+			list.add(id);
+			
+			FileOutputStream fos = new FileOutputStream(fId);
+			ObjectOutputStream oos = new ObjectOutputStream(fos);
+			
+			oos.writeObject(list);
+			
+			oos.flush();
+			oos.close();
+			fos.close();
+	
+		}
+		catch(Exception e) {
+			System.out.println("error in adding email id");
+		}
+	}
+	
+	public static int validId(ArrayList<Integer> list) {
+		
+		if (list == null)
+			return (int) (Math.random() * 1000);
+		else {
+			while(true) {
+				Integer rand = (int) (Math.random() * 1000);
+				if (!list.contains(rand))
+					return rand;
+			}		
+		}
+	}
+	
+	
+	
+	
+	public static void addUserToSysOfUsers(User u) {
+		File fUser = new File("users\\sysUsers"); 
+		
+		try {
+			ArrayList<User> list = readSysUsers();
+			
+			if (list == null) {
+				list = new ArrayList<User>();
+				
+				try {
+					fUser.createNewFile();
+				}
+				catch(Exception e) {
+					e.printStackTrace();
+				}
+			}
+			
+			list.add(u);
+			
+			FileOutputStream fos = new FileOutputStream(fUser);
+			ObjectOutputStream oos = new ObjectOutputStream(fos);
+			
+			oos.writeObject(list);
+			
+			oos.flush();
+			oos.close();
+			fos.close();
+			
+		}
+		catch(Exception e) {
+			System.out.println(e.getLocalizedMessage());
+		}
+	}
+	
+	public static ArrayList<User> readSysUsers(){
+		File fUser = new File("users\\sysUsers"); 
+
+		try {
+			FileInputStream fis = new FileInputStream(fUser);
+			ObjectInputStream ois = new ObjectInputStream(fis);
+			
+			ArrayList<User> list = (ArrayList<User>) ois.readObject();
+			return list;
+		}
+		catch(Exception e) {
+			return null;
+		}	
+		
+		
+	}
+	
+	
+	
+	
 	public static void main(String[] args) {
 		/*User u1 = new User();
 		u1.setEmailAddress("mrTamer@mmm.com");
@@ -195,9 +363,31 @@ public class WithFiles {
 		
 		*/
 		
+		//u.setUserName("what?");
 		
+		/*Email e = new Email();
+		
+		//keepMeLogIn(u);
+		//keepMeLogOut();
+		//System.out.println(getKeepMe());
+		
+		addIdToEmail(e);
+		System.out.println(e.getId());
+		*/
+		
+		User u = new User();
+		User u1 = new User();
+		User u2 = new User();
+
+		addUserToSysOfUsers(u);
+		addUserToSysOfUsers(u1);
+		addUserToSysOfUsers(u2);
+		
+		System.out.println(readSysUsers().size());
 		
 	}
+	
+	
 	
 	
 	

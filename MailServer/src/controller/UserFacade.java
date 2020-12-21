@@ -49,7 +49,8 @@ public class UserFacade {
 	
 	public void logIn(String emailAddress, String passWord) {
 		User newUser = WithFiles.readUser(emailAddress);
-		if (newUser.getPassWord().equals(emailAddress))
+		
+		if (newUser.getPassWord().equals(passWord))
 			u = newUser;
 		else
 			System.out.println("wrong pass");
