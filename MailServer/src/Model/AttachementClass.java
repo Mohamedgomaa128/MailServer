@@ -2,16 +2,21 @@ package Model;
 
 import java.awt.Desktop;
 import java.io.File;
+import java.util.ArrayList;
+
 
 public class AttachementClass {
 	// we may create another file and make it the proxy and then call from it
 	
-	public static void addAttach(File f) {
-		
+	public static void addAttach(File attachFile, Email e) {
+		e.addAttachement(attachFile);
 	}
 
-	public static void deleteAttach(File f) {
+	public static boolean deleteAttach(File attachFile, Email e) {
 		//delete its file and its element in the arrayList
+		ArrayList<File> list = e.getAttachements();
+		
+		return list.remove(attachFile);
 	}
 		
 	public static void viewAttach(File f) {

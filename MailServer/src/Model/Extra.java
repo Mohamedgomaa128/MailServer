@@ -12,14 +12,14 @@ public class Extra {
 		
 	}
 	
-	public String createrandomeemail(String firstName,String secondName) {
+	public String createRandomeEmail(String firstName,String secondName) {
 		//creates random email
 		String email="";
 		email = email + secondName.charAt(0) + firstName + secondName.charAt(1) + (int)(Math.random()*100) + "__" + secondName + "@csed.com";
 		return email;	
 	}
 		
-	public String createstrongemail(String fname ,String sname) {
+	public String createStrongEmail(String fname ,String sname) {
 		//creates strong email
 		String email="";
 		char ch1=(char)((int)(Math.random()*(90-65+1))+65);
@@ -29,7 +29,7 @@ public class Extra {
 		return email;
 	}
 	
-	public boolean isstrong(String password,String fname,String sname) {
+	public boolean isStrong(String password,String fname,String sname) {
 		//check the strength of the password
 		if(password.contains(fname)==true || password.contains(fname)==true) {
 			return false;

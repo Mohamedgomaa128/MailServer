@@ -10,7 +10,7 @@ public interface EmailSender {
 	
 	public void addAttachement(File f);
 	
-	public void send(boolean send); 
+	public void send(User sender, User reciever, boolean send); 
 	
 	
 	

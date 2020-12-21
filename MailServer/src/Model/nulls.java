@@ -39,4 +39,17 @@ public static ArrayList<User> loadSystemUsers() {
 		
 	}
 	 */
+	
+	/*public void addContactEmail(String email) {
+	ArrayList<User> arr = reciever.getOriginalUser();
+	
+	User rec = null;
+	
+	for (int i = 0; i < arr.size(); i++)
+		if (arr.get(i).getEmailAddress().equals(email))
+			rec = arr.get(i);
+
+	builder.setReciever(rec);
+}*/
+
 }

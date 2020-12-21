@@ -10,28 +10,44 @@ public class Folder implements Serializable{
 	private File file;
 	private ArrayList<Email> emailsList;
 	
+	
+	
 	public Folder() {
 		emailsList = new ArrayList<Email>(); 
 	}
 	
+	
+	
+	
 	public String getName() {
 		return name;
 	}
+	
 	public void setName(String name) {
 		this.name = name;
 	}
+	
+	
+	
 	public String getPath() {
 		return path;
 	}
+	
 	public void setPath(String path) {
 		this.path = path;
 	}
+	
+	
+	
 	public File getFile() {
 		return file;
 	}
+
 	public void setFile(File file) {
 		this.file = file;
 	}
+	
+	
 	
 	public void setEmailsList(ArrayList<Email> emailsList) {
 		this.emailsList = emailsList;
@@ -40,6 +56,8 @@ public class Folder implements Serializable{
 	public void addToEmailsList(Email email) {
 		emailsList.add(email);
 	}
+	
+	
 	
 	public ArrayListIterator getEmailsIterator() {
 		return new ArrayListIterator(emailsList);

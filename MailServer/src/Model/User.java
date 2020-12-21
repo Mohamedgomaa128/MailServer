@@ -4,12 +4,17 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 public class User implements Serializable{
-
-	private int id;
+	private String userName;
 	private String emailAddress;
+	private String passWord;
+	
 	private ArrayList<Contact> contacts;
 	private ArrayList<Folder> defaultFolders;
 	private ArrayList<Folder> userFolders;
+	
+	
+	
+	
 	
 	public User() {
 		defaultFolders = new ArrayList<Folder>();
@@ -17,23 +22,42 @@ public class User implements Serializable{
 		contacts = new ArrayList<Contact>();
 	}
 	
-	public int getId() {
-		return id;
+	
+	
+	
+	
+	public String getUserName() {
+		return userName;
 	}
-	public void setId(int id) {
-		this.id = id;
+
+	public void setUserName(String userName) {
+		this.userName = userName;
 	}
+
 	public String getEmailAddress() {
 		return emailAddress;
 	}
-	public void setEmailAddress(String emailAdress) {
-		this.emailAddress = emailAdress;
+	
+	public String getPassWord() {
+		return passWord;
 	}
+
+	public void setPassWord(String passWord) {
+		this.passWord = passWord;
+	}
+
+	public void setEmailAddress(String emailAddress) {
+		this.emailAddress = emailAddress;
+	}
+	
+	
+	
+	
 	
 	public void addToContacts(Contact c) {
 		contacts.add(c);
 	}
-	
+		
 	public void addToDefaultFolders(Folder f) {
 		defaultFolders.add(f);
 	}
@@ -42,6 +66,10 @@ public class User implements Serializable{
 		userFolders.add(f);
 	}
 	
+	
+	
+	
+	//to ease the use only
 	public ArrayList<Contact> getContacts() {
 		return contacts;
 	}
@@ -54,6 +82,9 @@ public class User implements Serializable{
 		return userFolders;
 	}
 
+
+
+	
 	public ArrayListIterator getContactIterator(){
 		return new ArrayListIterator(contacts);	
 	}
@@ -66,7 +97,12 @@ public class User implements Serializable{
 		return new ArrayListIterator(userFolders);	
 	}
 	
-	public ArrayListIterator getPageDefault(int start, int end, int folderInd) {
+	
+
+	
+	
+	public ArrayListIterator getPageFromDefault(int start, int end, int folderInd) {
+		//returns a page of emails
 		Folder f = defaultFolders.get(folderInd);
 		ArrayList<Email> list = new ArrayList<Email>();
 		
@@ -76,6 +112,11 @@ public class User implements Serializable{
 		
 		return new ArrayListIterator(list);
 	}
+	
+	
+
+	
+	
 	
 	public int deleteContact(String emailAddress) {
 		// -1 if not found
@@ -91,6 +132,7 @@ public class User implements Serializable{
 	
 	public void editContact(Contact c, String oldEmailAddress) {
 		//you may delete the original one and reAdd the new one in its place 
+		// here you must know the details of the old contact and copy what you want to the new one
 		int index = deleteContact(oldEmailAddress);
 		contacts.add(index, c);
 	}

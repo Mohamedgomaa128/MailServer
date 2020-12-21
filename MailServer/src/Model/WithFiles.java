@@ -49,6 +49,7 @@ public class WithFiles {
 	
 	
 	
+	
 	public static boolean writeUser(User u) {
 		//true if write well 
 		//false if failed
@@ -144,6 +145,14 @@ public class WithFiles {
 		u.addToDefaultFolders(f5);	
 		
 	}
+	
+	
+	
+	
+	public static void keepMeLogIn() {
+		//when you start program you just need to check for this file
+	}
+	
 	
 	/*public static void autoDeleteTrash() {
 	// called at the beginning of the program

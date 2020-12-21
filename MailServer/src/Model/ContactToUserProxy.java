@@ -1,11 +1,11 @@
 package Model;
 
 
-public class ContactProxy {
+public class ContactToUserProxy {
 
 	private User u;
 	
-	public ContactProxy(User u1) {
+	public ContactToUserProxy(User u1) {
 		u = u1;
 	}
 	
@@ -49,7 +49,7 @@ public class ContactProxy {
 		u4.addToContacts(c2);
 		u4.addToContacts(c3);
 		*/
-		ContactProxy cx = new ContactProxy(u4);
+		ContactToUserProxy cx = new ContactToUserProxy(u4);
 		
 		cx.addContact(c1);
 		cx.addContact(c2);

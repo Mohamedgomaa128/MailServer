@@ -5,56 +5,59 @@ import java.util.ArrayList;
 
 public class EmailSenderProxy implements EmailSender{
 	private EmailBuilder builder;
-	private User sender;
-	private User reciever;
 	
-	public EmailSenderProxy(User sender, User reciever) {
+	public EmailSenderProxy() {
 		builder = new EmailBuilder();
-		this.sender = sender;
-		this.reciever = reciever; 
-	}
-
+	}	
+	
 	@Override
 	public void addSubject(String subject) {
 		builder.setSubject(subject);
 	}
 
+	
 	@Override
 	public void addBody(String body) {
 		builder.setBody(body);
 	}
 
-	@Override
-	public void addAttachement(File attachement) {
-		builder.addAttachements(attachement);
-	}
-
-	/*public void addContactEmail(String email) {
-		ArrayList<User> arr = reciever.getOriginalUser();
-		
-		User rec = null;
-		
-		for (int i = 0; i < arr.size(); i++)
-			if (arr.get(i).getEmailAddress().equals(email))
-				rec = arr.get(i);
-
-		builder.setReciever(rec);
-	}*/
 	
 	@Override
-	public void send(boolean send) {
-		builder.setSender(sender);
+	public void addAttachement(File attachement) {
+		builder.addAttachement(attachement);
+	}
+	
+	@Override
+	public void send(User sender, User reciever,boolean send) {
 		
+		builder.setSender(sender);
+		builder.addReciever(reciever);
+		
+		Email e = builder.getEmail();
+		
+		
+		//may update to add more conditions
 		if (send) {			
+			
 			Folder recieverInbox = reciever.getDefaultFolders().get(0);
-			recieverInbox.addToEmailsList(builder.getEmail());
+			recieverInbox.addToEmailsList(e);
+			
 			Folder senderSentEmail = sender.getDefaultFolders().get(4);
-			senderSentEmail.addToEmailsList(builder.getEmail());
+			senderSentEmail.addToEmailsList(e);
+			
+
 		}
 		else {
+			
 			Folder senderDraft = sender.getDefaultFolders().get(3);
-			senderDraft.addToEmailsList(builder.getEmail());
+			senderDraft.addToEmailsList(e);
+			
 		}
+		
+		//not essential as you will need to write this user after each update
+		WithFiles.writeUser(reciever);
+		WithFiles.writeUser(sender);
+
 		
 	}
 	
@@ -71,18 +74,18 @@ public class EmailSenderProxy implements EmailSender{
 		u1.addToContacts(c1);
 		c1.addToOriginalUser(u2);
 		
-		EmailSenderProxy ex = new EmailSenderProxy(u1, u2);
+		EmailSenderProxy ex = new EmailSenderProxy();
 		
 		ex.addBody("here we are");
 		ex.addSubject("test");
 		//File f = new File("E:\\Quran\\الشيخ عبدالرحمن الزواوي\\12-يوسف\\سورة يوسف.mp4");
-		File f2 = new File("E:\\fall 2021\\first term\\numericals\\Numerical-Session 3 N.pdf");
-		ex.addAttachement(f2);
+		//File f2 = new File("E:\\fall 2021\\first term\\numericals\\Numerical-Session 3 N.pdf");
+		//ex.addAttachement(f2);
 		//ex.addAttachement(f);
 		
-		ex.send(true);
-		ex.send(true);
-		ex.send(true);
+		ex.send(u1, u2, true);
+		ex.send(u1, u2, true);
+		ex.send(u1, u2, true);
 		
 		for (int i = 0; i < 3; i++)
 			u2.getDefaultFolders().get(0).getEmailsList().get(i).print();
