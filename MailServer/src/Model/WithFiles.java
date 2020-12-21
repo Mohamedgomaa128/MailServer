@@ -283,7 +283,7 @@ public class WithFiles {
 	
 	
 	public static void addUserToSysOfUsers(User u) {
-		File fUser = new File("users\\sysUsers"); 
+		File fUser = new File("users\\sysUsers.txt"); 
 		
 		try {
 			ArrayList<User> list = readSysUsers();
@@ -317,7 +317,7 @@ public class WithFiles {
 	}
 	
 	public static ArrayList<User> readSysUsers(){
-		File fUser = new File("users\\sysUsers"); 
+		File fUser = new File("users\\sysUsers.txt"); 
 
 		try {
 			FileInputStream fis = new FileInputStream(fUser);
